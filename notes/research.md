@@ -9,6 +9,8 @@ G-force (g)
 
 
 // CHART // 
+
+/ COLUMNS /
 Mission phase
 Heart rate (BPM)
 SpO₂ (%)
@@ -16,11 +18,13 @@ Respiration (breaths/min)
 Body temp (°C)
 G-force (g)
 
+/ ROWS /
 Pre-launch
 Launch
 Ascent
 Orbit / normal ops
 Exercise
+EVA
 Sleep
 Reentry
 Landing
