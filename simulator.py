@@ -1,9 +1,5 @@
 import random, time
 
-## TEST ##
-# test = "testing testing 1 2 3"
-# print(test)
-
 ## SIMULATOR ##
 
 # PHASES #
@@ -92,16 +88,6 @@ def point_tlm(phase, telemetry_type):
             
             generated_telemetry = round(random.uniform(lower_fluct, higher_fluct), 1)
             print(f"{telemetry_type}: {generated_telemetry}")
-            
-            # lower_fluct = phase_tlm[telemetry_type] - 1
-            # higher_fluct = phase_tlm[telemetry_type] + 1
-            # # If the fluct can go beyond the bounds of this telemetry type, keep this telemetry point the same
-            # if (lower_fluct < data_range[0] or higher_fluct > data_range[1]): 
-            #     generated_telemetry = phase_tlm[telemetry_type]
-            #     print(f"{telemetry_type}: {generated_telemetry}")
-            # else: # the fluct cannot go beyond the bounds of this telemetry type
-            #     generated_telemetry = round(random.uniform(phase_tlm[telemetry_type] - 1, phase_tlm[telemetry_type] + 1), 1)
-            #     print(f"{telemetry_type}: {generated_telemetry}")
         else: # this type of telemetry has not been recorded for this phase
             generated_telemetry = round(random.uniform(*data_range), 1) # baseline (where astronaut starts)
             print(f"{telemetry_type}: {generated_telemetry}")
@@ -120,7 +106,6 @@ def phase_tlm(phase):
         point_tlm(phase, tlm)
 
 
-
 # START SIM #
 # TO-DO
 #   * (DONE) Make 1-minute simulation (5-min sim / 5)
@@ -133,7 +118,7 @@ def phase_tlm(phase):
 #       - orbit: 0:44-0:52
 #       - reentry: 0:52-0:57
 #       - landing: 0:57-1:00
-#   * Fix what's adding an extra second to each phase (except the first phase)
+#   * (DONE) Fix what's adding an extra second to each phase (except the first phase)
 #   * Program each phase with an adequate length of time (~20-30 secs/phase)
 #       - 5-minute simulation
 #       - (DONE) Once a telemetry value is chosen (at random), the fluctuations should
@@ -147,9 +132,9 @@ def phase_tlm(phase):
 #   * Make the transition between phases smoother (to increase accuracy of the simulation)
 #       - Might need to adjust length of phases to accomodate for these transitions (in order to keep it at a 1 or 5 min sim)
 #   * (DONE) For the small fluctuations, don't let them go beyond the upper and lower bounds of that telemetry type (e.g. g-force cannnot be -0.6)
-#   * Clean up point_tlm
+#   * (DONE) Clean up point_tlm
 #       - helper functions might help reduce the embedded if/else statements
-#
+#           - (DONE) found simpler solution
 
 def start_sim():
     mission_time = 0
@@ -172,20 +157,5 @@ def start_sim():
             print(f"Phase: {phase}")
             phase_tlm(phase)
             print("")
-
-
-# def start_sim():
-#     mission_time = 0
-#     for phase in phases:
-#         phase_length = phase_times[phase]
-#         for second in range(0, phase_length + 1):
-#             print(f"Mission time: {mission_time} seconds")
-#             print(f"Phase: {phase}")
-
-#             mission_time += 1
-
-#             phase_tlm(phase)
-#             print("")
-#             time.sleep(1)
 
 start_sim()
