@@ -153,16 +153,39 @@ def phase_tlm(phase):
 
 def start_sim():
     mission_time = 0
+
+    # Initial telemetry (0 seconds)
+    print(f"Mission time: {mission_time} seconds")
+    print(f"Phase: {phases[0]}")
+    phase_tlm(phases[0])
+    print("")
+
+    # Time starts passing
     for phase in phases:
         phase_length = phase_times[phase]
-        for second in range(0, phase_length + 1):
-            print(f"Mission time: {mission_time} seconds")
-            print(f"Phase: {phase}")
 
+        for second in range(phase_length):
+            time.sleep(1)
             mission_time += 1
 
+            print(f"Mission time: {mission_time} seconds")
+            print(f"Phase: {phase}")
             phase_tlm(phase)
             print("")
-            time.sleep(1)
+
+
+# def start_sim():
+#     mission_time = 0
+#     for phase in phases:
+#         phase_length = phase_times[phase]
+#         for second in range(0, phase_length + 1):
+#             print(f"Mission time: {mission_time} seconds")
+#             print(f"Phase: {phase}")
+
+#             mission_time += 1
+
+#             phase_tlm(phase)
+#             print("")
+#             time.sleep(1)
 
 start_sim()
