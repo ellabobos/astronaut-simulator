@@ -87,15 +87,21 @@ def point_tlm(phase, telemetry_type):
     if phase in past_phases: # if the astronaut has been in this phase
         phase_tlm = past_phases[phase]
         if telemetry_type in phase_tlm: # if this type of telemetry has been recorded for this phase
-            lower_fluct = phase_tlm[telemetry_type] - 1
-            higher_fluct = phase_tlm[telemetry_type] + 1
-            # If the fluct can go beyond the bounds of this telemetry type, keep this telemetry point the same
-            if (lower_fluct < data_range[0] or higher_fluct > data_range[1]): 
-                generated_telemetry = phase_tlm[telemetry_type]
-                print(f"{telemetry_type}: {generated_telemetry}")
-            else: # the fluct cannot go beyond the bounds of this telemetry type
-                generated_telemetry = round(random.uniform(phase_tlm[telemetry_type] - 1, phase_tlm[telemetry_type] + 1), 1)
-                print(f"{telemetry_type}: {generated_telemetry}")
+            lower_fluct = max(phase_tlm[telemetry_type] - 1, data_range[0])
+            higher_fluct = max(phase_tlm[telemetry_type] + 1, data_range[1])
+            
+            generated_telemetry = round(random.uniform(lower_fluct, higher_fluct), 1)
+            print(f"{telemetry_type}: {generated_telemetry}")
+            
+            # lower_fluct = phase_tlm[telemetry_type] - 1
+            # higher_fluct = phase_tlm[telemetry_type] + 1
+            # # If the fluct can go beyond the bounds of this telemetry type, keep this telemetry point the same
+            # if (lower_fluct < data_range[0] or higher_fluct > data_range[1]): 
+            #     generated_telemetry = phase_tlm[telemetry_type]
+            #     print(f"{telemetry_type}: {generated_telemetry}")
+            # else: # the fluct cannot go beyond the bounds of this telemetry type
+            #     generated_telemetry = round(random.uniform(phase_tlm[telemetry_type] - 1, phase_tlm[telemetry_type] + 1), 1)
+            #     print(f"{telemetry_type}: {generated_telemetry}")
         else: # this type of telemetry has not been recorded for this phase
             generated_telemetry = round(random.uniform(*data_range), 1) # baseline (where astronaut starts)
             print(f"{telemetry_type}: {generated_telemetry}")
